@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.box {
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    width: 45%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.animal-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#animal-image img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+#upload-form {
+    margin-bottom: 20px;
+}
+
+#file-info {
+    margin-top: 20px;
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Processor</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .text-box {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 100px;
+        }
+        .button {
+            margin: 10px 0;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:disabled {
+            background-color: #ccc;
+        }
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 0 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Processor</h1>
+        
+        <div>
+            <input type="file" id="fileInput" accept=".txt">
+            <button class="button" onclick="uploadFile()">Upload</button>
+        </div>
+
+        <h2>Original Text</h2>
+        <div class="text-box" id="originalText">{{ original_text }}</div>
+
+        <button class="button" onclick="preprocessText()" id="preprocessButton">Preprocess</button>
+        <h2>Preprocessed Text</h2>
+        <div class="text-box" id="preprocessedText">{{ preprocessed_text }}</div>
+
+        <button class="button" onclick="augmentText()" id="augmentButton">Augment</button>
+        <h2>Augmented Text (changes highlighted)</h2>
+        <div class="text-box" id="augmentedText">{{ augmented_text }}</div>
+    </div>
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a file first');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            document.getElementById('originalText').textContent = data.text;
+            document.getElementById('preprocessedText').textContent = '';
+            document.getElementById('augmentedText').textContent = '';
+        }
+
+        async function preprocessText() {
+            const response = await fetch('/preprocess', {
+                method: 'POST'
+            });
+            const data = await response.json();
+            if (data.error) {
+                alert(data.error);
+            } else {
+                document.getElementById('preprocessedText').textContent = data.text;
+            }
+        }
+
+        async function augmentText() {
+            const response = await fetch('/augment', {
+                method: 'POST'
+            });
+            const data = await response.json();
+            if (data.error) {
+                alert(data.error);
+            } else {
+                const sourceText = document.getElementById('preprocessedText').textContent || document.getElementById('originalText').textContent;
+                const augmentedHtml = highlightDifferences(sourceText, data.text);
+                document.getElementById('augmentedText').innerHTML = augmentedHtml;
+            }
+        }
+
+        function highlightDifferences(original, augmented) {
+            const originalWords = original.split(' ');
+            const augmentedWords = augmented.split(' ');
+            let result = '';
+
+            for (let i = 0; i < augmentedWords.length; i++) {
+                if (i < originalWords.length && augmentedWords[i] !== originalWords[i]) {
+                    result += `<span class="highlight">${augmentedWords[i]}</span> `;
+                } else {
+                    result += augmentedWords[i] + ' ';
+                }
+            }
+
+            return result.trim();
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Selector and File Uploader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h2>Select an Animal</h2>
+            <div class="animal-selector">
+                <label><input type="radio" name="animal" value="cat"> Cat</label>
+                <label><input type="radio" name="animal" value="dog"> Dog</label>
+                <label><input type="radio" name="animal" value="elephant"> Elephant</label>
+            </div>
+            <div id="animal-image"></div>
+            <div id="debug-info"></div>
+        </div>
+        <div class="box">
+            <h2>Upload a File</h2>
+            <form id="upload-form" enctype="multipart/form-data">
+                <input type="file" id="file-input" name="file">
+                <button type="submit">Upload</button>
+            </form>
+            <div id="file-info"></div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- Preload images -->
+    <img src="{{ url_for('static', filename='images/cat.jpg') }}" style="display: none;">
+    <img src="{{ url_for('static', filename='images/dog.jpg') }}" style="display: none;">
+    <img src="{{ url_for('static', filename='images/elephant.jpg') }}" style="display: none;">
+</body>
+</html>

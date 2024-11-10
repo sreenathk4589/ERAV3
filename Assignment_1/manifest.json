@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "Moving Ball Game",
+  "version": "1.0",
+  "description": "A simple moving ball game with a paddle and target",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_title": "Start Moving Ball Game"
+  }
+}
