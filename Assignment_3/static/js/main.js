@@ -1,49 +1,105 @@
-document.getElementById('inputType').addEventListener('change', function(e) {
-    const inputType = e.target.value;
-    updateInputUI(inputType);
-});
+console.log('main.js starting to load');
 
-function updateInputUI(inputType) {
-    // Hide all input displays and option groups
-    document.querySelectorAll('#inputDisplay > *').forEach(el => el.style.display = 'none');
-    document.querySelectorAll('.option-group').forEach(el => el.style.display = 'none');
+function updateDisplayType() {
+    console.log('Updating display type');
+    const inputType = document.getElementById('input-type').value;
+    
+    // Hide all containers first
+    const containers = {
+        text: document.getElementById('textContainer'),
+        image: document.getElementById('imageContainer'),
+        audio: document.getElementById('audioContainer'),
+        '3d': document.getElementById('3dContainer')
+    };
+    
+    console.log('Input type selected:', inputType);
+    
+    // Hide all containers
+    Object.values(containers).forEach(container => {
+        if (container) {
+            container.style.display = 'none';
+        }
+    });
+    
+    // Show the selected container
+    if (containers[inputType]) {
+        containers[inputType].style.display = 'block';
+        console.log(`Showing ${inputType} container`);
+    }
     
     // Update file input accept attribute
-    const fileInput = document.getElementById('dataFile');
-    switch(inputType) {
-        case 'text':
-            fileInput.accept = '.txt';
-            document.getElementById('inputText').style.display = 'block';
-            document.getElementById('textPreprocessing').style.display = 'block';
-            document.getElementById('textAugmentation').style.display = 'block';
-            break;
-        case 'image':
-            fileInput.accept = 'image/*';
-            document.getElementById('inputImage').style.display = 'block';
-            document.getElementById('imagePreprocessing').style.display = 'block';
-            document.getElementById('imageAugmentation').style.display = 'block';
-            break;
-        case 'audio':
-            fileInput.accept = 'audio/*';
-            document.getElementById('inputAudio').style.display = 'block';
-            document.getElementById('audioPreprocessing').style.display = 'block';
-            document.getElementById('audioAugmentation').style.display = 'block';
-            break;
-        case '3d':
-            fileInput.accept = '.ply,.pcd,.xyz';
-            document.getElementById('pointCloudCanvas').style.display = 'block';
-            document.getElementById('pointCloudPreprocessing').style.display = 'block';
-            document.getElementById('pointCloudAugmentation').style.display = 'block';
-            break;
+    const fileInput = document.getElementById('file-input');
+    if (fileInput) {
+        switch(inputType) {
+            case 'text':
+                fileInput.accept = '.txt';
+                break;
+            case 'image':
+                fileInput.accept = 'image/*';
+                break;
+            case 'audio':
+                fileInput.accept = 'audio/*';
+                break;
+            case '3d':
+                fileInput.accept = '.ply,.pcd,.xyz';
+                break;
+        }
     }
 }
 
-document.getElementById('dataFile').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    const inputType = document.getElementById('inputType').value;
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded event fired in main.js');
     
-    if (!file) return;
+    const inputTypeSelect = document.getElementById('input-type');
+    if (inputTypeSelect) {
+        inputTypeSelect.addEventListener('change', updateDisplayType);
+        // Call it once to set initial state
+        updateDisplayType();
+    }
+    
+    // File input change handler
+    const fileInput = document.getElementById('file-input');
+    const uploadButton = document.getElementById('uploadButton');
+    
+    fileInput.addEventListener('change', function(e) {
+        uploadButton.disabled = !e.target.files.length;
+    });
+    
+    // Upload button handler
+    uploadButton.addEventListener('click', function() {
+        const file = fileInput.files[0];
+        if (file) {
+            handleFileUpload(file);
+        }
+    });
+    
+    // Clear button handler
+    const clearButton = document.getElementById('clearButton');
+    clearButton.addEventListener('click', clearAll);
+    
+    // Other button handlers
+    const preprocessButton = document.getElementById('preprocessButton');
+    const augmentButton = document.getElementById('augmentButton');
+    
+    if (preprocessButton) {
+        preprocessButton.addEventListener('click', () => processData('preprocess'));
+    }
+    
+    if (augmentButton) {
+        augmentButton.addEventListener('click', () => processData('augment'));
+    }
+});
 
+function handleFileUpload(file) {
+    const inputType = document.getElementById('input-type').value;
+    if (!inputType) {
+        showError('Please select an input type first');
+        return;
+    }
+    
+    // Show the appropriate container
+    updateDisplayType();
+    
     switch(inputType) {
         case 'text':
             handleTextFile(file);
@@ -58,13 +114,78 @@ document.getElementById('dataFile').addEventListener('change', function(e) {
             handle3DFile(file);
             break;
     }
-});
+    
+    // Enable process buttons after successful upload
+    document.getElementById('preprocessButton').disabled = false;
+    document.getElementById('augmentButton').disabled = false;
+}
 
+function clearAll() {
+    // Clear file input
+    const fileInput = document.getElementById('file-input');
+    fileInput.value = '';
+    
+    // Disable buttons
+    document.getElementById('uploadButton').disabled = true;
+    document.getElementById('preprocessButton').disabled = true;
+    document.getElementById('augmentButton').disabled = true;
+    
+    // Clear all displays
+    document.getElementById('inputText').value = '';
+    document.getElementById('preprocessedText').value = '';
+    document.getElementById('augmentedText').value = '';
+    
+    const images = ['inputImage', 'preprocessedImage', 'augmentedImage'];
+    images.forEach(id => {
+        const img = document.getElementById(id);
+        if (img) img.src = '';
+    });
+    
+    const audios = ['inputAudio', 'preprocessedAudio', 'augmentedAudio'];
+    audios.forEach(id => {
+        const audio = document.getElementById(id);
+        if (audio) audio.src = '';
+    });
+    
+    // Clear info displays
+    const infoDisplay = document.getElementById('preprocessingInfo');
+    if (infoDisplay) infoDisplay.innerHTML = '';
+    
+    // Hide all containers except text (default)
+    const containers = ['imageContainer', 'audioContainer', '3dContainer'];
+    containers.forEach(id => {
+        const container = document.getElementById(id);
+        if (container) {
+            container.style.display = 'none';
+        }
+    });
+    
+    // Show text container
+    const textContainer = document.getElementById('textContainer');
+    if (textContainer) {
+        textContainer.style.display = 'block';
+    }
+    
+    // Reset input type selector
+    const inputTypeSelect = document.getElementById('input-type');
+    if (inputTypeSelect) {
+        inputTypeSelect.value = '';
+    }
+}
+
+// Add these file handling functions
 function handleTextFile(file) {
     const reader = new FileReader();
     reader.onload = function(e) {
-        document.getElementById('inputText').value = e.target.result;
-        processData();
+        const inputText = document.getElementById('inputText');
+        if (inputText) {
+            inputText.value = e.target.result;
+            console.log('Text file loaded:', e.target.result.substring(0, 100) + '...');
+        }
+    };
+    reader.onerror = function(e) {
+        console.error('Error reading text file:', e);
+        showError('Error reading text file');
     };
     reader.readAsText(file);
 }
@@ -73,10 +194,14 @@ function handleImageFile(file) {
     const reader = new FileReader();
     reader.onload = function(e) {
         const img = document.getElementById('inputImage');
-        img.src = e.target.result;
-        img.onload = function() {
-            processData();
-        };
+        if (img) {
+            img.src = e.target.result;
+            console.log('Image file loaded');
+        }
+    };
+    reader.onerror = function(e) {
+        console.error('Error reading image file:', e);
+        showError('Error reading image file');
     };
     reader.readAsDataURL(file);
 }
@@ -85,92 +210,222 @@ function handleAudioFile(file) {
     const reader = new FileReader();
     reader.onload = function(e) {
         const audio = document.getElementById('inputAudio');
-        audio.src = e.target.result;
-        processData();
+        if (audio) {
+            audio.src = e.target.result;
+            console.log('Audio file loaded');
+        }
+    };
+    reader.onerror = function(e) {
+        console.error('Error reading audio file:', e);
+        showError('Error reading audio file');
     };
     reader.readAsDataURL(file);
 }
 
 function handle3DFile(file) {
-    // Implementation for 3D point cloud files
-    // This would require a specific 3D visualization library
-    console.log('3D file handling not implemented yet');
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        console.log('3D file loaded');
+        // Implementation for 3D visualization would go here
+    };
+    reader.onerror = function(e) {
+        console.error('Error reading 3D file:', e);
+        showError('Error reading 3D file');
+    };
+    reader.readAsArrayBuffer(file);
 }
 
-document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-    checkbox.addEventListener('change', processData);
-});
+// Add error handling function
+function showError(message) {
+    console.error('Error:', message);
+    const errorDiv = document.getElementById('errorMessage');
+    if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+        setTimeout(() => {
+            errorDiv.style.display = 'none';
+        }, 5000);
+    }
+}
 
-function processData() {
-    const inputType = document.getElementById('inputType').value;
-    const preprocessingSteps = Array.from(document.querySelectorAll('input[name="preprocessing"]:checked'))
-        .map(cb => cb.value);
-    const augmentationSteps = Array.from(document.querySelectorAll('input[name="augmentation"]:checked'))
-        .map(cb => cb.value);
-
-    let formData = new FormData();
-    const file = document.getElementById('dataFile').files[0];
-    if (!file) return;
-
+// Add the processData function that was missing
+function processData(action) {
+    console.log('Processing data:', action);
+    
+    const inputType = document.getElementById('input-type').value;
+    const fileInput = document.getElementById('file-input');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        showError('Please select a file first');
+        return;
+    }
+    
+    const formData = new FormData();
     formData.append('file', file);
     formData.append('input_type', inputType);
-    formData.append('preprocessing_steps', JSON.stringify(preprocessingSteps));
-    formData.append('augmentation_steps', JSON.stringify(augmentationSteps));
-
+    formData.append('action', action);
+    
+    // Show loading state
+    const preprocessButton = document.getElementById('preprocessButton');
+    const augmentButton = document.getElementById('augmentButton');
+    if (preprocessButton) preprocessButton.disabled = true;
+    if (augmentButton) augmentButton.disabled = true;
+    
     fetch('/process', {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
-        updateOutputDisplay(data, inputType);
+        console.log('Received response:', data);
+        if (data.error) {
+            throw new Error(data.error);
+        }
+        updateOutputDisplay(data, inputType, action);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError(error.message);
+    })
+    .finally(() => {
+        // Reset button states
+        if (preprocessButton) preprocessButton.disabled = false;
+        if (augmentButton) augmentButton.disabled = false;
     });
 }
 
-function updateOutputDisplay(data, inputType) {
-    switch(inputType) {
-        case 'text':
-            document.getElementById('preprocessedText').value = data.preprocessed_text;
-            document.getElementById('augmentedText').value = data.augmented_text;
-            highlightChanges(data.changes);
-            break;
-        case 'image':
-            document.getElementById('preprocessedImage').src = data.preprocessed_image;
-            document.getElementById('augmentedImage').src = data.augmented_image;
-            break;
-        case 'audio':
-            document.getElementById('preprocessedAudio').src = data.preprocessed_audio;
-            document.getElementById('augmentedAudio').src = data.augmented_audio;
-            break;
-        case '3d':
-            // Implementation for 3D visualization
-            break;
+// Add the updateOutputDisplay function
+function updateOutputDisplay(data, inputType, action) {
+    console.log('Updating display:', { data, inputType, action });
+    
+    if (action === 'preprocess') {
+        switch(inputType) {
+            case 'text':
+                const textElement = document.getElementById('preprocessedText');
+                if (textElement && data.preprocessed_text) {
+                    textElement.value = data.preprocessed_text;
+                }
+                break;
+            case 'image':
+                const imgElement = document.getElementById('preprocessedImage');
+                if (imgElement && data.preprocessed_image) {
+                    imgElement.src = data.preprocessed_image;
+                }
+                const infoElement = document.getElementById('preprocessingInfo');
+                if (infoElement && data.display_info) {
+                    infoElement.innerHTML = `
+                        Original Size: ${data.display_info.original_size.join('x')}<br>
+                        Processed Size: ${data.display_info.processed_size.join('x')}<br>
+                        Normalized Range: [${data.display_info.normalized_range.join(', ')}]
+                    `;
+                }
+                break;
+            case 'audio':
+                const audioElement = document.getElementById('preprocessedAudio');
+                const visElement = document.getElementById('audioVisualizations');
+                if (audioElement && data.preprocessed_audio) {
+                    audioElement.src = data.preprocessed_audio;
+                }
+                if (visElement && data.visualizations) {
+                    visElement.src = data.visualizations;
+                }
+                break;
+            case '3d':
+                const visCanvas = document.getElementById('pointCloudVisualization');
+                if (visCanvas && data.visualization) {
+                    visCanvas.src = data.visualization;
+                }
+                break;
+        }
+    } else if (action === 'augment') {
+        console.log('Handling augmentation for:', inputType);
+        console.log('Received data:', data);
+        
+        switch(inputType) {
+            case 'text':
+                const textElement = document.getElementById('augmentedText');
+                if (textElement && data.augmented_text) {
+                    textElement.value = data.augmented_text;
+                    console.log('Updated augmented text');
+                } else {
+                    console.error('Missing text element or augmented_text data');
+                }
+                break;
+            case 'image':
+                const imgElement = document.getElementById('augmentedImage');
+                console.log('Image element found:', !!imgElement);
+                console.log('Augmented image data:', data.augmented_image?.substring(0, 50) + '...');
+                
+                if (imgElement && data.augmented_image) {
+                    imgElement.src = data.augmented_image;
+                    console.log('Set augmented image src');
+                    
+                    // Add onload handler to verify image loading
+                    imgElement.onload = () => {
+                        console.log('Augmented image loaded successfully');
+                    };
+                    imgElement.onerror = (e) => {
+                        console.error('Error loading augmented image:', e);
+                    };
+                } else {
+                    console.error('Missing image element or augmented_image data');
+                }
+                break;
+            case 'audio':
+                const audioElement = document.getElementById('augmentedAudio');
+                const visElement = document.getElementById('audioVisualizations');
+                
+                console.log('Audio elements found:', {
+                    audio: !!audioElement,
+                    visualization: !!visElement
+                });
+                console.log('Audio data received:', {
+                    hasAudio: !!data.augmented_audio,
+                    hasVis: !!data.visualizations
+                });
+                
+                if (audioElement && data.augmented_audio) {
+                    audioElement.src = data.augmented_audio;
+                    console.log('Set augmented audio src');
+                    
+                    // Add event listeners for audio
+                    audioElement.onloadeddata = () => {
+                        console.log('Augmented audio loaded successfully');
+                    };
+                    audioElement.onerror = (e) => {
+                        console.error('Error loading augmented audio:', e);
+                    };
+                }
+                
+                if (visElement && data.visualizations) {
+                    visElement.src = data.visualizations;
+                    console.log('Set audio visualization src');
+                    
+                    // Add onload handler for visualization
+                    visElement.onload = () => {
+                        console.log('Audio visualization loaded successfully');
+                    };
+                    visElement.onerror = (e) => {
+                        console.error('Error loading audio visualization:', e);
+                    };
+                }
+                break;
+            case '3d':
+                const visCanvas = document.getElementById('pointCloudVisualization');
+                if (visCanvas && data.visualization) {
+                    visCanvas.src = data.visualization;
+                    console.log('Updated 3D visualization');
+                }
+                break;
+        }
     }
+    
+    // Log final state
+    console.log(`Finished updating display for ${inputType} ${action}`);
 }
-
-function highlightChanges(changes) {
-    const augmentedText = document.getElementById('augmentedText');
-    const text = augmentedText.value;
-    
-    const tempDiv = document.createElement('div');
-    let lastIndex = 0;
-    
-    changes.forEach(change => {
-        const before = text.substring(lastIndex, change.start);
-        const highlighted = text.substring(change.start, change.end);
-        
-        tempDiv.appendChild(document.createTextNode(before));
-        const span = document.createElement('span');
-        span.className = 'highlight';
-        span.textContent = highlighted;
-        tempDiv.appendChild(span);
-        
-        lastIndex = change.end;
-    });
-    
-    tempDiv.appendChild(document.createTextNode(text.substring(lastIndex)));
-    augmentedText.innerHTML = tempDiv.innerHTML;
-}
-
-// Initialize UI for default input type
-updateInputUI(document.getElementById('inputType').value);

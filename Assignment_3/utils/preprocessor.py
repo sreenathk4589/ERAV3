@@ -2,6 +2,8 @@ import numpy as np
 from PIL import Image
 import librosa
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+import io
 
 def preprocess_text(text):
     """
@@ -20,10 +22,7 @@ def preprocess_text(text):
 
 def preprocess_image(image):
     """
-    Preprocess image data:
-    - Resize to standard size
-    - Convert to RGB if needed
-    - Normalize pixel values
+    Preprocess image data and return both processed image and display data
     """
     # Convert to RGB if needed
     if image.mode != 'RGB':
@@ -40,14 +39,18 @@ def preprocess_image(image):
     # Convert back to PIL Image
     normalized_image = Image.fromarray((img_array * 255).astype(np.uint8))
     
-    return normalized_image
+    # Add display information
+    display_info = {
+        'original_size': image.size,
+        'processed_size': standard_size,
+        'normalized_range': [img_array.min(), img_array.max()]
+    }
+    
+    return normalized_image, display_info
 
-def preprocess_audio(audio_data):
+def preprocess_audio(audio_data, sample_rate=22050):
     """
-    Preprocess audio data:
-    - Normalize amplitude
-    - Remove silence
-    - Apply noise reduction
+    Preprocess audio data and return both processed audio and visualization
     """
     # Normalize amplitude
     audio_data = audio_data / np.max(np.abs(audio_data))
@@ -61,7 +64,20 @@ def preprocess_audio(audio_data):
     window_size = 5
     audio_data = np.convolve(audio_data, np.ones(window_size)/window_size, mode='valid')
     
-    return audio_data
+    # Add visualization
+    plt.figure(figsize=(10, 4))
+    plt.plot(audio_data)
+    plt.title('Processed Audio Waveform')
+    plt.xlabel('Sample')
+    plt.ylabel('Amplitude')
+    
+    # Save plot to bytes buffer
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    plt.close()
+    buf.seek(0)
+    
+    return audio_data, buf
 
 def preprocess_3d(points):
     """
