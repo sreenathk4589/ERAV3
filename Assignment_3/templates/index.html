@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Processing Interface</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .button-group {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .visualization {
+            margin: 20px 0;
+        }
+        .results {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .result-container {
+            width: 100%;
+            text-align: left;
+        }
+        .text-display {
+            width: 100%;
+            min-height: 100px;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: monospace;
+            resize: vertical;
+            display: none;
+        }
+        .media-display {
+            width: 100%;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+        .changes-list {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Processing Interface</h1>
+        
+        <div>
+            <select id="input-type" onchange="updateDisplayType()">
+                <option value="image">Image</option>
+                <option value="audio">Audio</option>
+                <option value="3d">3D Data</option>
+                <option value="text">Text</option>
+            </select>
+            
+            <input type="file" id="file-input">
+        </div>
+
+        <div class="button-group">
+            <button onclick="processData('preprocess')">Preprocess</button>
+            <button onclick="processData('augment')">Augment</button>
+            <button onclick="clearResults()">Clear</button>
+        </div>
+
+        <div class="results">
+            <div class="result-container">
+                <h3>Original</h3>
+                <textarea id="original-text" class="text-display" readonly></textarea>
+                <div id="original-media" class="media-display"></div>
+            </div>
+            <div class="result-container">
+                <h3>Preprocessed</h3>
+                <textarea id="preprocessed-text" class="text-display" readonly></textarea>
+                <div id="preprocessed-media" class="media-display"></div>
+            </div>
+            <div class="result-container">
+                <h3>Augmented</h3>
+                <textarea id="augmented-text" class="text-display" readonly></textarea>
+                <div id="augmented-media" class="media-display"></div>
+                <div id="changes-list" class="changes-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentFile = null;
+
+        function updateDisplayType() {
+            const inputType = document.getElementById('input-type').value;
+            const textDisplays = document.getElementsByClassName('text-display');
+            const mediaDisplays = document.getElementsByClassName('media-display');
+            const changesList = document.getElementById('changes-list');
+            
+            for (let display of textDisplays) {
+                display.style.display = inputType === 'text' ? 'block' : 'none';
+            }
+            for (let display of mediaDisplays) {
+                display.style.display = inputType !== 'text' ? 'block' : 'none';
+            }
+            changesList.style.display = 'none';
+        }
+
+        function processData(action) {
+            const inputType = document.getElementById('input-type').value;
+            
+            if (!currentFile) {
+                alert('Please select a file first');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', currentFile);
+            formData.append('input_type', inputType);
+            formData.append('action', action);
+
+            fetch('/process', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                updateDisplay(data, inputType, action);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error processing file');
+            });
+        }
+
+        function updateDisplay(data, inputType, action) {
+            if (inputType === 'text') {
+                if (action === 'preprocess') {
+                    document.getElementById('preprocessed-text').value = data.preprocessed_text;
+                } else {
+                    document.getElementById('augmented-text').value = data.augmented_text;
+                    const changesList = document.getElementById('changes-list');
+                    changesList.style.display = 'block';
+                    changesList.innerHTML = '<h4>Changes Made:</h4>' + 
+                        data.changes.map(change => `<div>• ${change}</div>`).join('');
+                }
+            } else {
+                const displayId = action === 'preprocess' ? 'preprocessed-media' : 'augmented-media';
+                const display = document.getElementById(displayId);
+                
+                if (inputType === 'image') {
+                    display.innerHTML = `<img src="${data[action === 'preprocess' ? 'preprocessed_image' : 'augmented_image']}" style="max-width: 100%;">`;
+                } else if (inputType === 'audio') {
+                    display.innerHTML = `
+                        <img src="${data.visualizations}" style="max-width: 100%;">
+                        <audio controls>
+                            <source src="${data[action === 'preprocess' ? 'preprocessed_audio' : 'augmented_audio']}" type="audio/wav">
+                        </audio>
+                    `;
+                } else if (inputType === '3d') {
+                    display.innerHTML = `<img src="${data.visualization}" style="max-width: 100%;">`;
+                }
+            }
+        }
+
+        function clearResults() {
+            const textDisplays = document.getElementsByClassName('text-display');
+            const mediaDisplays = document.getElementsByClassName('media-display');
+            
+            for (let display of textDisplays) {
+                display.value = '';
+            }
+            for (let display of mediaDisplays) {
+                display.innerHTML = '';
+            }
+            
+            document.getElementById('changes-list').innerHTML = '';
+            document.getElementById('file-input').value = '';
+            currentFile = null;
+        }
+
+        document.getElementById('file-input').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const inputType = document.getElementById('input-type').value;
+            currentFile = file;
+            
+            clearResults();
+
+            if (inputType === 'text') {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('original-text').value = e.target.result;
+                };
+                reader.readAsText(file);
+            } else if (inputType === 'image') {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('original-media').innerHTML = 
+                        `<img src="${e.target.result}" style="max-width: 100%;">`;
+                };
+                reader.readAsDataURL(file);
+            } else if (inputType === 'audio') {
+                document.getElementById('original-media').innerHTML = `
+                    <audio controls>
+                        <source src="${URL.createObjectURL(file)}" type="audio/wav">
+                    </audio>
+                `;
+            }
+        });
+
+        document.getElementById('input-type').addEventListener('change', function() {
+            clearResults();
+            updateDisplayType();
+        });
+
+        updateDisplayType();
+    </script>
+</body>
+</html> 

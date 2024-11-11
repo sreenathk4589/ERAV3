@@ -1,0 +1,17 @@
+software requirements:
+1. Create an application that allows user to add a text file and display it on the textbox.
+2. Allow the user to choose a predefined set of preprocessing steps using checkboxes
+3. From the selected steps, apply them on the selected file and display it in a second text box with title - "Preprocessed Data" 
+4. Allow the user to choose a set of augmentation options from a checkbox - like synonyms replacement using some dictionary or randomly removing some words etc.
+5. apply these changes to the preprocessed text and display the augmented text in a third textbox.
+6. User should be able to see unaltered input test, preprocessed text and augmented text simultaneously.
+7. The changes in the augmented text with respect to the preprocessed text must be highlighted in yellow colour
+8. Flask API must be used to perform these tasks
+9. This should run as a browser based application
+10. Create an option to input an image and/or 3D point dataset and/or audio dataset if chosen in the beginning
+11. based on the choice allow the user to choose a predefined set of preprocessing steps using checkboxes
+12. From the selected steps, apply them on the selected file and display it in appropriate outputbox with title - "Preprocessed Data" 
+13. Allow the user to choose a set of augmentation options from a checkbox for the given input type for example image has flipping/cutout,
+ audio has noise and stretching, 3d points hasPA-AUG/Point MixSwap
+14. apply these changes to the preprocessed input and display the augmented data in appropriate output boxes
+15. User should be able to see unaltered input , preprocessed dataand augmented data simultaneously

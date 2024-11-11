@@ -1,0 +1,70 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.input-type-section {
+    margin-bottom: 20px;
+}
+
+.input-type-section select {
+    padding: 8px;
+    font-size: 16px;
+}
+
+.input-section, .output-section {
+    margin-bottom: 20px;
+}
+
+#inputDisplay, #preprocessedDisplay, #augmentedDisplay {
+    width: 100%;
+    margin: 10px 0;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.options-section {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.preprocessing-options, .augmentation-options {
+    flex: 1;
+}
+
+.option-group {
+    margin: 10px 0;
+}
+
+label {
+    display: block;
+    margin: 5px 0;
+}
+
+.highlight {
+    background-color: yellow;
+}
+
+canvas {
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 300px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+}
+
+audio {
+    width: 100%;
+    margin: 10px 0;
+} 
