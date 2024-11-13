@@ -1,0 +1,241 @@
+.model-config {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.layer-controls {
+  margin-bottom: 1.5rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.layers-visualization {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.layer-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.layer-box {
+  padding: 1rem;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.layer-box.conv2d {
+  background: #e3f2fd;
+  border: 1px solid #90caf9;
+}
+
+.layer-box.linear {
+  background: #f3e5f5;
+  border: 1px solid #ce93d8;
+}
+
+.layer-box.maxpool {
+  background: #fff3e0;
+  border: 1px solid #ffb74d;
+}
+
+.layer-box.activation {
+  background: #e8f5e9;
+  border: 1px solid #81c784;
+}
+
+.layer-params {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+}
+
+.layer-params label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.layer-params input {
+  padding: 0.25rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.layer-arrow {
+  color: #666;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  background: #007bff;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background: #0056b3;
+}
+
+.button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.button-danger {
+  background: #dc3545;
+}
+
+.button-danger:hover {
+  background: #c82333;
+}
+
+.training-config {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.training-config h4 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.config-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.config-item label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.config-item input,
+.config-item select {
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.learning-rate-container {
+  grid-column: 1 / -1;
+}
+
+.learning-rate-container input[type="range"] {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.augmentations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+}
+
+.augmentations label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.augmentations input[type="checkbox"] {
+  width: auto;
+}
+
+/* Style the range input (slider) */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: #e9ecef;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+  transition: background .15s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #0056b3;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 50%;
+  background: #007bff;
+  cursor: pointer;
+  transition: background .15s ease-in-out;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: #0056b3;
+}
+
+.default-channels-config {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.default-channels-config h4 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.default-channels-config .config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.default-channels-config input[type="number"],
+.default-channels-config select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.9rem;
+} 

@@ -1,0 +1,92 @@
+2024-11-12 19:16:17,206 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:16:17,206 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:16:17,206 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:22:31,864 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:22:31,865 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:22:31,865 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:22:34,479 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:22:34,479 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:22:34,479 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:24:57,592 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:24:57,594 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:24:57,594 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:25:00,236 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:25:00,236 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:25:00,237 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:26:38,243 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:26:38,243 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:26:38,243 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:26:40,834 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:26:40,834 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:26:40,834 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:28:10,613 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:28:10,613 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:28:10,613 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:28:13,198 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:28:13,198 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:28:13,198 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:28:47,459 - app.main - INFO - [main.py:74] - Health check endpoint accessed
+2024-11-12 19:30:19,833 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:30:19,833 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:30:19,833 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:30:22,418 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:30:22,418 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:30:22,418 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:33:19,256 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:33:19,256 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:33:19,256 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:33:22,005 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:33:22,005 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:33:22,005 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:38:37,047 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:38:37,047 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:38:37,047 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:38:39,879 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:38:39,879 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:38:39,879 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:41:22,016 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:41:22,016 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:41:22,016 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:41:38,499 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:41:38,500 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:41:38,500 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:42:27,400 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:42:27,400 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:42:27,400 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:42:30,023 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:42:30,023 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:42:30,023 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:42:47,903 - app.main - INFO - [main.py:81] - Received start training request
+2024-11-12 19:42:47,903 - app.main - INFO - [main.py:111] - Starting initialization for session 08179f1c-72af-4959-a60a-388f117529cf
+2024-11-12 19:42:47,903 - app.main - INFO - [main.py:96] - Returning session ID: 08179f1c-72af-4959-a60a-388f117529cf
+2024-11-12 19:43:00,413 - app.main - INFO - [main.py:130] - Initialization complete for session 08179f1c-72af-4959-a60a-388f117529cf
+2024-11-12 19:44:48,720 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:44:48,720 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:44:48,720 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:44:51,310 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-12 19:44:51,310 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-12 19:44:51,310 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-12 19:45:12,017 - app.main - INFO - [main.py:80] - === Start Training Request Received ===
+2024-11-12 19:45:12,017 - app.main - DEBUG - [main.py:86] - Received data: {'config1': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 1, 'kernel_size': 3, 'stride': 1, 'padding': 1}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}, 'config2': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 1, 'kernel_size': 3, 'stride': 1, 'padding': 1}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}}
+2024-11-12 19:45:12,017 - app.main - INFO - [main.py:94] - Generated session ID: dccfa764-907a-41ef-bf13-483aeba114d4
+2024-11-12 19:45:12,017 - app.main - INFO - [main.py:120] - === Starting initialization for session dccfa764-907a-41ef-bf13-483aeba114d4 ===
+2024-11-12 19:45:12,017 - app.main - INFO - [main.py:105] - === Returning session ID: dccfa764-907a-41ef-bf13-483aeba114d4 ===
+2024-11-12 19:45:12,038 - app.main - INFO - [main.py:150] - Checking status for session dccfa764-907a-41ef-bf13-483aeba114d4
+2024-11-12 19:45:12,040 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['dccfa764-907a-41ef-bf13-483aeba114d4'])
+2024-11-12 19:45:12,040 - app.main - INFO - [main.py:171] - Returning status for session dccfa764-907a-41ef-bf13-483aeba114d4: initializing
+2024-11-12 19:45:12,090 - app.main - INFO - [main.py:139] - === Initialization complete for session dccfa764-907a-41ef-bf13-483aeba114d4 ===
+2024-11-12 19:45:13,058 - app.main - INFO - [main.py:150] - Checking status for session dccfa764-907a-41ef-bf13-483aeba114d4
+2024-11-12 19:45:13,058 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['dccfa764-907a-41ef-bf13-483aeba114d4'])
+2024-11-12 19:45:13,058 - app.main - INFO - [main.py:171] - Returning status for session dccfa764-907a-41ef-bf13-483aeba114d4: ready
+2024-11-12 19:45:54,283 - app.main - INFO - [main.py:80] - === Start Training Request Received ===
+2024-11-12 19:45:54,283 - app.main - DEBUG - [main.py:86] - Received data: {'config1': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 1, 'kernel_size': 3, 'stride': 1, 'padding': 1}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}, 'config2': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 1, 'kernel_size': 3, 'stride': 1, 'padding': 1}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}}
+2024-11-12 19:45:54,283 - app.main - INFO - [main.py:94] - Generated session ID: 2c49e644-24c4-4acc-a80c-5e870769e1f1
+2024-11-12 19:45:54,283 - app.main - INFO - [main.py:105] - === Returning session ID: 2c49e644-24c4-4acc-a80c-5e870769e1f1 ===
+2024-11-12 19:45:54,283 - app.main - INFO - [main.py:120] - === Starting initialization for session 2c49e644-24c4-4acc-a80c-5e870769e1f1 ===
+2024-11-12 19:45:54,300 - app.main - INFO - [main.py:150] - Checking status for session 2c49e644-24c4-4acc-a80c-5e870769e1f1
+2024-11-12 19:45:54,301 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['dccfa764-907a-41ef-bf13-483aeba114d4', '2c49e644-24c4-4acc-a80c-5e870769e1f1'])
+2024-11-12 19:45:54,301 - app.main - INFO - [main.py:171] - Returning status for session 2c49e644-24c4-4acc-a80c-5e870769e1f1: initializing
+2024-11-12 19:45:54,346 - app.main - INFO - [main.py:139] - === Initialization complete for session 2c49e644-24c4-4acc-a80c-5e870769e1f1 ===
+2024-11-12 19:45:55,385 - app.main - INFO - [main.py:150] - Checking status for session 2c49e644-24c4-4acc-a80c-5e870769e1f1
+2024-11-12 19:45:55,385 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['dccfa764-907a-41ef-bf13-483aeba114d4', '2c49e644-24c4-4acc-a80c-5e870769e1f1'])
+2024-11-12 19:45:55,385 - app.main - INFO - [main.py:171] - Returning status for session 2c49e644-24c4-4acc-a80c-5e870769e1f1: ready

@@ -1,0 +1,17 @@
+develope a web app that allows user to compare the performance of 2 neural network architectures to solve MNIST fashion dataset.
+the user shall be able to configure neural network architectures where the architecturre specifics like kernel size, number of output channels per layer etc. shall be configurable.
+the user shall be able to train the 2 networks in parallel with a given batch size, and learning rate.
+the user shall be able to see the training and validation accuracy/loss curves for both networks in real time.
+the user shall be able to download the trained models weights and later use them to make predictions on the MNIST fashion dataset.
+the code must be pytorch based
+user should be able to add standard augmentation steps using a checkbox list
+user should be able to select the device type to run the training on
+user should be able to select the optimizer type
+user should be able to select the loss function type
+user should be able to select the learning rate
+user should be able to select the batch size
+user should be able to select the number of epochs
+user should be able to abort the training of any one model anytime
+user should be able to visualize the loss with live update every epochs
+user should be able to visualize the accuracy with live update every epochs
+user should be able to download the trained models weights and later use them to make predictions on the MNIST fashion dataset.
