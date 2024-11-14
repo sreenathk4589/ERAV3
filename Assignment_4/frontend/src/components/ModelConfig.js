@@ -1,31 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { logger } from '../services/logger';
+import ConfigurationIO from './ConfigurationIO';
+import TrainingControls from './TrainingControls';
 
-function ModelConfig({ modelNum, onConfigChange }) {
-  const [layers, setLayers] = useState([]);
-  const [config, setConfig] = useState({
-    layers: [],
-    optimizer_type: 'adam',
-    loss_function: 'cross_entropy',
-    learning_rate: 0.001,
-    batch_size: 32,
-    num_epochs: 10,
-    device: 'cuda',
-    augmentations: []
+function ModelConfig({ modelNum, onConfigChange, initialConfig, sessionId, isTraining, onStatusChange }) {
+  const [modelConfig, setModelConfig] = useState({
+    layers: initialConfig?.layers || [],
+    optimizer_type: initialConfig?.optimizer_type || 'adam',
+    loss_function: initialConfig?.loss_function || 'cross_entropy',
+    learning_rate: initialConfig?.learning_rate || 0.001,
+    batch_size: initialConfig?.batch_size || 32,
+    num_epochs: initialConfig?.num_epochs || 10,
+    device: initialConfig?.device || 'cuda',
+    augmentations: initialConfig?.augmentations || []
   });
 
+  const [isLocked, setIsLocked] = useState(false);
+
+  // Memoize the configuration update
+  const updateParentConfig = useCallback(() => {
+    onConfigChange(modelConfig);
+  }, [modelConfig, onConfigChange]);
+
+  // Update parent only when modelConfig changes
   useEffect(() => {
-    const fullConfig = {
-      ...config,
-      layers: layers
-    };
-    onConfigChange(fullConfig);
-  }, [JSON.stringify(layers), JSON.stringify(config)]);
+    updateParentConfig();
+  }, [updateParentConfig]);
 
   const addLayer = (type) => {
     logger.info(`Adding ${type} Layer to Model ${modelNum}`);
     let newLayer;
-    const lastLayer = layers[layers.length - 1];
+    const lastLayer = modelConfig.layers[modelConfig.layers.length - 1];
     
     switch(type) {
       case 'conv2d':
@@ -35,10 +40,10 @@ function ModelConfig({ modelNum, onConfigChange }) {
         } else if (lastLayer.layer_type === 'conv2d') {
           inChannels = lastLayer.out_channels;
         } else if (lastLayer.layer_type === 'maxpool') {
-          const lastConvLayer = [...layers].reverse().find(l => l.layer_type === 'conv2d');
+          const lastConvLayer = [...modelConfig.layers].reverse().find(l => l.layer_type === 'conv2d');
           inChannels = lastConvLayer ? lastConvLayer.out_channels : 1;
         } else if (lastLayer.layer_type === 'activation') {
-          const lastConvLayer = [...layers].reverse().find(l => 
+          const lastConvLayer = [...modelConfig.layers].reverse().find(l => 
             l.layer_type === 'conv2d' || l.layer_type === 'maxpool'
           );
           inChannels = lastConvLayer ? 
@@ -49,7 +54,7 @@ function ModelConfig({ modelNum, onConfigChange }) {
         newLayer = { 
           layer_type: 'conv2d', 
           in_channels: inChannels,
-          out_channels: inChannels, // Initialize with same as input, user can modify
+          out_channels: inChannels,
           kernel_size: 3,
           stride: 1,
           padding: 1
@@ -57,7 +62,7 @@ function ModelConfig({ modelNum, onConfigChange }) {
         break;
 
       case 'maxpool':
-        const lastChannelLayer = [...layers].reverse().find(l => 
+        const lastChannelLayer = [...modelConfig.layers].reverse().find(l => 
           l.layer_type === 'conv2d' || l.layer_type === 'maxpool'
         );
         const channels = lastChannelLayer ? 
@@ -68,7 +73,7 @@ function ModelConfig({ modelNum, onConfigChange }) {
           layer_type: 'maxpool',
           kernel_size: 2,
           stride: 2,
-          channels: channels  // Store the number of channels
+          channels: channels
         };
         break;
 
@@ -89,7 +94,7 @@ function ModelConfig({ modelNum, onConfigChange }) {
           let size = 28; // Initial image size
           let channels = lastLayer.out_channels;
           
-          layers.forEach(l => {
+          modelConfig.layers.forEach(l => {
             if (l.layer_type === 'conv2d') {
               size = Math.floor((size - l.kernel_size + 2*l.padding) / l.stride) + 1;
             } else if (l.layer_type === 'maxpool') {
@@ -103,19 +108,26 @@ function ModelConfig({ modelNum, onConfigChange }) {
         newLayer = { 
           layer_type: 'linear', 
           in_features: inFeatures,
-          out_features: layers.length === layers.length - 1 ? 10 : 128
+          out_features: modelConfig.layers.length === modelConfig.layers.length - 1 ? 10 : 128
         };
         break;
 
       default:
         return;
     }
-    setLayers([...layers, newLayer]);
+
+    setModelConfig(prev => ({
+      ...prev,
+      layers: [...prev.layers, newLayer]
+    }));
   };
 
   const removeLastLayer = () => {
-    if (layers.length > 0) {
-      setLayers(layers.slice(0, -1));
+    if (modelConfig.layers.length > 0) {
+      setModelConfig(prev => ({
+        ...prev,
+        layers: prev.layers.slice(0, -1)
+      }));
     }
   };
 
@@ -124,7 +136,8 @@ function ModelConfig({ modelNum, onConfigChange }) {
       field,
       value
     });
-    const updatedLayers = [...layers];
+    
+    const updatedLayers = [...modelConfig.layers];
     const currentLayer = updatedLayers[index];
     
     // Parse value based on field type
@@ -135,7 +148,7 @@ function ModelConfig({ modelNum, onConfigChange }) {
       parsedValue = parseInt(value);
       if (isNaN(parsedValue)) {
         console.warn(`Invalid value for ${field}:`, value);
-        return; // Don't update if value is invalid
+        return;
       }
     }
 
@@ -154,39 +167,17 @@ function ModelConfig({ modelNum, onConfigChange }) {
       }
     }
 
-    // Force a re-render by creating a new array
-    setLayers(updatedLayers);
+    setModelConfig(prev => ({
+      ...prev,
+      layers: updatedLayers
+    }));
   };
 
   const updateConfig = (field, value) => {
-    console.log(`=== Updating ${field} ===`);
-    console.log('New value:', value);
-    let processedValue;
-    
-    switch(field) {
-      case 'learning_rate':
-        processedValue = parseFloat(value);
-        break;
-      case 'batch_size':
-      case 'num_epochs':
-        processedValue = parseInt(value) || 1; // Default to 1 if parsing fails
-        break;
-      case 'augmentations':
-        processedValue = value;
-        break;
-      default:
-        processedValue = value;
-    }
-
-    console.log(`Updating ${field} to:`, processedValue); // Debug log
-
-    const newConfig = {
-      ...config,
-      [field]: processedValue
-    };
-    
-    setConfig(newConfig);
-    onConfigChange(newConfig); // Make sure to call this to update parent
+    setModelConfig(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   const renderLayerConfig = (layer, index) => {
@@ -328,32 +319,105 @@ function ModelConfig({ modelNum, onConfigChange }) {
     }
   };
 
+  const renderCompactView = (layers) => {
+    return (
+      <div className="compact-architecture">
+        <table className="compact-table">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Type</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            {layers.map((layer, index) => {
+              let details = '';
+              switch(layer.layer_type) {
+                case 'conv2d':
+                  details = `Out: ${layer.out_channels}, K: ${layer.kernel_size}×${layer.kernel_size}`;
+                  break;
+                case 'maxpool':
+                  details = `K: ${layer.kernel_size}×${layer.kernel_size}`;
+                  break;
+                case 'activation':
+                  details = layer.function;
+                  break;
+                case 'linear':
+                  details = `Out: ${layer.out_features}`;
+                  break;
+                default:
+                  details = '-';
+              }
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{layer.layer_type}</td>
+                  <td>{details}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  };
+
   return (
     <div className="model-config">
-      <div className="layer-controls">
-        <div className="button-group">
-          <button className="button" onClick={() => addLayer('conv2d')}>Add Conv2D</button>
-          <button className="button" onClick={() => addLayer('maxpool')}>Add MaxPool</button>
-          <button className="button" onClick={() => addLayer('activation')}>Add Activation</button>
-          <button className="button" onClick={() => addLayer('linear')}>Add Linear</button>
-          <button 
-            className="button button-danger" 
-            onClick={removeLastLayer}
-            disabled={layers.length === 0}
-          >
-            Undo Last Layer
-          </button>
+      <div className="top-controls">
+        <div className="controls-row">
+          <div className="button-group">
+            <button className="button" onClick={() => addLayer('conv2d')}>Add Conv2D</button>
+            <button className="button" onClick={() => addLayer('maxpool')}>Add MaxPool</button>
+            <button className="button" onClick={() => addLayer('activation')}>Add Activation</button>
+            <button className="button" onClick={() => addLayer('linear')}>Add Linear</button>
+            <button 
+              className="button button-danger" 
+              onClick={removeLastLayer}
+              disabled={modelConfig.layers.length === 0}
+            >
+              Undo Last Layer
+            </button>
+            <button 
+              className={`button ${isLocked ? 'button-locked' : 'button-unlocked'}`}
+              onClick={() => setIsLocked(!isLocked)}
+            >
+              {isLocked ? '🔒' : '🔓'}
+            </button>
+          </div>
+          
+          <TrainingControls 
+            modelNum={modelNum}
+            sessionId={sessionId}
+            isTraining={isTraining}
+            onStatusChange={onStatusChange}
+            modelConfig={modelConfig}
+          />
         </div>
         
+        <ConfigurationIO 
+          modelNum={modelNum}
+          currentConfig={modelConfig}
+          onConfigImport={(importedConfig) => {
+            setModelConfig(importedConfig);
+            setIsLocked(false); // Unlock when importing
+          }}
+        />
+      </div>
+
+      {isLocked ? (
+        renderCompactView(modelConfig.layers)
+      ) : (
         <div className="layers-visualization">
-          {layers.map((layer, index) => (
+          {modelConfig.layers.map((layer, index) => (
             <div key={index} className="layer-container">
               {renderLayerConfig(layer, index)}
-              {index < layers.length - 1 && <div className="layer-arrow">→</div>}
+              {index < modelConfig.layers.length - 1 && <div className="layer-arrow">→</div>}
             </div>
           ))}
         </div>
-      </div>
+      )}
       
       <div className="training-config">
         <h4>Training Configuration</h4>
@@ -362,7 +426,7 @@ function ModelConfig({ modelNum, onConfigChange }) {
             <label>
               Optimizer:
               <select 
-                value={config.optimizer_type}
+                value={modelConfig.optimizer_type}
                 onChange={(e) => updateConfig('optimizer_type', e.target.value)}
               >
                 <option value="adam">Adam</option>
@@ -379,7 +443,7 @@ function ModelConfig({ modelNum, onConfigChange }) {
                 type="number"
                 min="1"
                 max="512"
-                value={config.batch_size}
+                value={modelConfig.batch_size}
                 onChange={(e) => updateConfig('batch_size', e.target.value)}
                 onBlur={(e) => {
                   let value = parseInt(e.target.value);
@@ -397,7 +461,7 @@ function ModelConfig({ modelNum, onConfigChange }) {
               <input
                 type="number"
                 min="1"
-                value={config.num_epochs}
+                value={modelConfig.num_epochs}
                 onChange={(e) => updateConfig('num_epochs', e.target.value)}
                 onBlur={(e) => {
                   let value = parseInt(e.target.value);
@@ -410,13 +474,13 @@ function ModelConfig({ modelNum, onConfigChange }) {
 
           <div className="config-item learning-rate-container">
             <label>
-              Learning Rate: {config.learning_rate.toExponential(3)}
+              Learning Rate: {modelConfig.learning_rate.toExponential(3)}
               <input
                 type="range"
                 min="-5"
                 max="-1"
                 step="0.1"
-                value={Math.log10(config.learning_rate)}
+                value={Math.log10(modelConfig.learning_rate)}
                 onChange={(e) => {
                   const value = Math.pow(10, parseFloat(e.target.value));
                   updateConfig('learning_rate', value);
@@ -429,7 +493,7 @@ function ModelConfig({ modelNum, onConfigChange }) {
             <label>
               Device:
               <select
-                value={config.device}
+                value={modelConfig.device}
                 onChange={(e) => updateConfig('device', e.target.value)}
               >
                 <option value="cuda">GPU (CUDA)</option>
@@ -445,11 +509,11 @@ function ModelConfig({ modelNum, onConfigChange }) {
             <label>
               <input 
                 type="checkbox"
-                checked={config.augmentations.includes('random_horizontal_flip')}
+                checked={modelConfig.augmentations.includes('random_horizontal_flip')}
                 onChange={(e) => {
                   const newAugs = e.target.checked 
-                    ? [...config.augmentations, 'random_horizontal_flip']
-                    : config.augmentations.filter(aug => aug !== 'random_horizontal_flip');
+                    ? [...modelConfig.augmentations, 'random_horizontal_flip']
+                    : modelConfig.augmentations.filter(aug => aug !== 'random_horizontal_flip');
                   updateConfig('augmentations', newAugs);
                 }}
               />
@@ -463,4 +527,4 @@ function ModelConfig({ modelNum, onConfigChange }) {
   );
 }
 
-export default ModelConfig;
+export default React.memo(ModelConfig);

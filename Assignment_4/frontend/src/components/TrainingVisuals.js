@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+import '../styles/TrainingVisuals.css';
 
 function TrainingVisuals({ sessionId }) {
   const [chartData, setChartData] = useState({
@@ -93,7 +94,7 @@ function TrainingVisuals({ sessionId }) {
       }
     },
     animation: {
-      duration: 0 // Disable animation for better performance
+      duration: 0
     }
   };
 
@@ -102,14 +103,18 @@ function TrainingVisuals({ sessionId }) {
       {error && <div className="error-message">{error}</div>}
       
       <div className="charts-container">
-        <div className="chart-wrapper">
-          <h3>Training Loss</h3>
-          <Line data={chartData.loss} options={chartOptions} />
+        <div className="chart-column">
+          <div className="chart-wrapper">
+            <h3>Training Loss</h3>
+            <Line data={chartData.loss} options={chartOptions} />
+          </div>
         </div>
         
-        <div className="chart-wrapper">
-          <h3>Training Accuracy</h3>
-          <Line data={chartData.accuracy} options={chartOptions} />
+        <div className="chart-column">
+          <div className="chart-wrapper">
+            <h3>Training Accuracy</h3>
+            <Line data={chartData.accuracy} options={chartOptions} />
+          </div>
         </div>
       </div>
     </div>

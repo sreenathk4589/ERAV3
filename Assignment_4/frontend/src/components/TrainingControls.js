@@ -1,137 +1,102 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { logger } from '../services/logger';
+import '../styles/TrainingControls.css';
 
 function TrainingControls({ modelNum, sessionId, isTraining, onStatusChange, modelConfig }) {
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleStartTraining = async () => {
+  const startTraining = async () => {
     try {
-      setIsLoading(true);
-      setError(null);
-      
-      if (!modelConfig) {
-        throw new Error('Model configuration is not set');
-      }
-
-      logger.info(`Starting Training for Model ${modelNum}`, modelConfig);
-
-      const requestData = {
-        config1: modelConfig,
-        config2: modelConfig
-      };
-
-      const response = await axios.post('/api/start-training', requestData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
+      console.log('Sending training request:', {
+        model_num: modelNum,
+        session_id: sessionId,
+        config: modelConfig
       });
-
-      if (response.data.session_id) {
-        const sessionId = response.data.session_id;
-        let attempts = 0;
-        const maxAttempts = 30; // 30 seconds timeout
-
-        const checkStatus = async () => {
-          const statusResponse = await axios.get(`/api/training-status/${sessionId}`);
-          if (statusResponse.data.status === 'ready') {
-            logger.info(`Training initialized for Model ${modelNum}`);
-            onStatusChange(true);
-          } else if (statusResponse.data.status === 'error') {
-            throw new Error(statusResponse.data.error || 'Initialization failed');
-          } else if (attempts < maxAttempts) {
-            attempts++;
-            setTimeout(checkStatus, 1000); // Check every second
-          } else {
-            throw new Error('Initialization timed out');
-          }
-        };
-
-        await checkStatus();
+      
+      const response = await axios.post('/api/train', {
+        model_num: modelNum,
+        session_id: sessionId,
+        config: modelConfig
+      });
+      
+      if (response.data.success) {
+        onStatusChange(true);
+        logger.info(`Started training Model ${modelNum}`);
       }
-    } catch (err) {
-      const errorMessage = err.response?.data?.error || err.message;
-      logger.error(`Training Error for Model ${modelNum}`, errorMessage);
-      setError(`Failed to start training: ${errorMessage}`);
-    } finally {
-      setIsLoading(false);
+    } catch (error) {
+      logger.error(`Failed to start training Model ${modelNum}:`, {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+        config: error.config
+      });
+      alert('Failed to start training. Please check the console for details.');
     }
   };
 
-  const handleStopTraining = async () => {
+  const stopTraining = async () => {
     try {
-      setError(null);
-      await axios.post(`/api/stop-training/${sessionId}/${modelNum}`);
-      onStatusChange(false);
-    } catch (err) {
-      setError('Failed to stop training: ' + err.message);
+      const response = await axios.post('/api/stop', {
+        model_num: modelNum,
+        session_id: sessionId
+      });
+      
+      if (response.data.success) {
+        onStatusChange(false);
+        logger.info(`Stopped training Model ${modelNum}`);
+      }
+    } catch (error) {
+      logger.error(`Failed to stop training Model ${modelNum}:`, error);
+      alert('Failed to stop training. Please check the console for details.');
     }
   };
 
-  const handleDownloadWeights = async () => {
+  const downloadWeights = async () => {
     try {
-      setError(null);
-      setIsLoading(true);
+      const response = await axios.get(`/api/weights/${sessionId}/model${modelNum}`, {
+        responseType: 'blob'
+      });
       
-      const response = await axios.get(
-        `/api/download-weights/${sessionId}/${modelNum}`,
-        { responseType: 'blob' }
-      );
-      
-      const blob = new Blob([response.data], { type: 'application/octet-stream' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `model${modelNum}_weights.pth`;
-      document.body.appendChild(a);
-      a.click();
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `model${modelNum}_weights.pth`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
       window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-    } catch (err) {
-      setError('Failed to download weights: ' + err.message);
-    } finally {
-      setIsLoading(false);
+      
+      logger.info(`Downloaded weights for Model ${modelNum}`);
+    } catch (error) {
+      logger.error(`Failed to download weights for Model ${modelNum}:`, error);
+      alert('Failed to download weights. Please check the console for details.');
     }
   };
 
   return (
     <div className="training-controls">
-      {error && <div className="error-message">{error}</div>}
-      
-      <div className="button-group">
+      <div className="control-buttons">
         {!isTraining ? (
-          <button
-            className="button button-primary"
-            onClick={handleStartTraining}
-            disabled={isLoading}
+          <button 
+            className="control-button start"
+            onClick={startTraining}
+            disabled={!modelConfig || modelConfig.layers.length === 0}
           >
-            {isLoading ? (
-              <span className="loading-spinner" />
-            ) : (
-              'Start Training'
-            )}
+            Start Training
           </button>
         ) : (
-          <button
-            className="button button-danger"
-            onClick={handleStopTraining}
+          <button 
+            className="control-button stop"
+            onClick={stopTraining}
           >
             Stop Training
           </button>
         )}
-        
         <button
-          className="button button-success"
-          onClick={handleDownloadWeights}
-          disabled={isLoading || !sessionId}
+          className="control-button download"
+          onClick={downloadWeights}
+          disabled={!sessionId}
         >
-          {isLoading ? (
-            <span className="loading-spinner" />
-          ) : (
-            'Download Weights'
-          )}
+          Download Weights
         </button>
       </div>
     </div>

@@ -1,0 +1,46 @@
+.config-io-container {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.config-io-button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.config-io-button.export {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+.config-io-button.export:hover {
+  background-color: #45a049;
+}
+
+.config-io-button.export:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.config-io-button.import {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+}
+
+.config-io-button.import:hover {
+  background-color: #1976D2;
+}
+
+.import-wrapper {
+  position: relative;
+}
+
+.import-input {
+  display: none;
+} 

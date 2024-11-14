@@ -90,3 +90,159 @@
 2024-11-12 19:45:55,385 - app.main - INFO - [main.py:150] - Checking status for session 2c49e644-24c4-4acc-a80c-5e870769e1f1
 2024-11-12 19:45:55,385 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['dccfa764-907a-41ef-bf13-483aeba114d4', '2c49e644-24c4-4acc-a80c-5e870769e1f1'])
 2024-11-12 19:45:55,385 - app.main - INFO - [main.py:171] - Returning status for session 2c49e644-24c4-4acc-a80c-5e870769e1f1: ready
+2024-11-13 18:44:21,546 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 18:44:21,546 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 18:44:21,546 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-13 18:44:24,633 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 18:44:24,633 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 18:44:24,633 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-13 18:46:39,377 - app.main - INFO - [main.py:80] - === Start Training Request Received ===
+2024-11-13 18:46:39,377 - app.main - DEBUG - [main.py:86] - Received data: {'config1': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 1, 'kernel_size': 3, 'stride': 1, 'padding': 1}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}, 'config2': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 1, 'kernel_size': 3, 'stride': 1, 'padding': 1}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}}
+2024-11-13 18:46:39,381 - app.main - INFO - [main.py:94] - Generated session ID: 0767031a-8cfc-4799-b12a-08de99dc2753
+2024-11-13 18:46:39,381 - app.main - INFO - [main.py:120] - === Starting initialization for session 0767031a-8cfc-4799-b12a-08de99dc2753 ===
+2024-11-13 18:46:39,381 - app.main - INFO - [main.py:105] - === Returning session ID: 0767031a-8cfc-4799-b12a-08de99dc2753 ===
+2024-11-13 18:46:39,398 - app.main - INFO - [main.py:150] - Checking status for session 0767031a-8cfc-4799-b12a-08de99dc2753
+2024-11-13 18:46:39,399 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['0767031a-8cfc-4799-b12a-08de99dc2753'])
+2024-11-13 18:46:39,400 - app.main - INFO - [main.py:171] - Returning status for session 0767031a-8cfc-4799-b12a-08de99dc2753: initializing
+2024-11-13 18:46:39,566 - app.main - INFO - [main.py:139] - === Initialization complete for session 0767031a-8cfc-4799-b12a-08de99dc2753 ===
+2024-11-13 18:46:40,414 - app.main - INFO - [main.py:150] - Checking status for session 0767031a-8cfc-4799-b12a-08de99dc2753
+2024-11-13 18:46:40,414 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['0767031a-8cfc-4799-b12a-08de99dc2753'])
+2024-11-13 18:46:40,414 - app.main - INFO - [main.py:171] - Returning status for session 0767031a-8cfc-4799-b12a-08de99dc2753: ready
+2024-11-13 18:52:30,529 - app.main - INFO - [main.py:80] - === Start Training Request Received ===
+2024-11-13 18:52:30,529 - app.main - DEBUG - [main.py:86] - Received data: {'config1': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 64, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 3136, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.1, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}, 'config2': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 64, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 3136, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.1, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}}
+2024-11-13 18:52:30,529 - app.main - INFO - [main.py:94] - Generated session ID: 575a6818-708f-4284-8607-c50f15e6ea75
+2024-11-13 18:52:30,529 - app.main - INFO - [main.py:105] - === Returning session ID: 575a6818-708f-4284-8607-c50f15e6ea75 ===
+2024-11-13 18:52:30,529 - app.main - INFO - [main.py:120] - === Starting initialization for session 575a6818-708f-4284-8607-c50f15e6ea75 ===
+2024-11-13 18:52:30,546 - app.main - INFO - [main.py:150] - Checking status for session 575a6818-708f-4284-8607-c50f15e6ea75
+2024-11-13 18:52:30,547 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['0767031a-8cfc-4799-b12a-08de99dc2753', '575a6818-708f-4284-8607-c50f15e6ea75'])
+2024-11-13 18:52:30,547 - app.main - INFO - [main.py:171] - Returning status for session 575a6818-708f-4284-8607-c50f15e6ea75: initializing
+2024-11-13 18:52:30,603 - app.main - INFO - [main.py:139] - === Initialization complete for session 575a6818-708f-4284-8607-c50f15e6ea75 ===
+2024-11-13 18:52:31,567 - app.main - INFO - [main.py:150] - Checking status for session 575a6818-708f-4284-8607-c50f15e6ea75
+2024-11-13 18:52:31,567 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['0767031a-8cfc-4799-b12a-08de99dc2753', '575a6818-708f-4284-8607-c50f15e6ea75'])
+2024-11-13 18:52:31,567 - app.main - INFO - [main.py:171] - Returning status for session 575a6818-708f-4284-8607-c50f15e6ea75: ready
+2024-11-13 19:21:15,692 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 19:21:15,692 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 19:21:15,694 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-13 19:21:18,257 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 19:21:18,263 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 19:21:18,263 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-13 19:27:22,375 - app.main - INFO - [main.py:80] - === Start Training Request Received ===
+2024-11-13 19:27:22,375 - app.main - DEBUG - [main.py:86] - Received data: {'config1': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 1568, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}, 'config2': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 5, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 1568, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}}
+2024-11-13 19:27:22,375 - app.main - INFO - [main.py:94] - Generated session ID: b32a9fcd-e0f4-433c-9b91-ca34da1aee3c
+2024-11-13 19:27:22,375 - app.main - INFO - [main.py:120] - === Starting initialization for session b32a9fcd-e0f4-433c-9b91-ca34da1aee3c ===
+2024-11-13 19:27:22,375 - app.main - INFO - [main.py:105] - === Returning session ID: b32a9fcd-e0f4-433c-9b91-ca34da1aee3c ===
+2024-11-13 19:27:22,398 - app.main - INFO - [main.py:150] - Checking status for session b32a9fcd-e0f4-433c-9b91-ca34da1aee3c
+2024-11-13 19:27:22,398 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['b32a9fcd-e0f4-433c-9b91-ca34da1aee3c'])
+2024-11-13 19:27:22,398 - app.main - INFO - [main.py:171] - Returning status for session b32a9fcd-e0f4-433c-9b91-ca34da1aee3c: initializing
+2024-11-13 19:27:22,472 - app.main - INFO - [main.py:139] - === Initialization complete for session b32a9fcd-e0f4-433c-9b91-ca34da1aee3c ===
+2024-11-13 19:27:23,415 - app.main - INFO - [main.py:150] - Checking status for session b32a9fcd-e0f4-433c-9b91-ca34da1aee3c
+2024-11-13 19:27:23,415 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['b32a9fcd-e0f4-433c-9b91-ca34da1aee3c'])
+2024-11-13 19:27:23,415 - app.main - INFO - [main.py:171] - Returning status for session b32a9fcd-e0f4-433c-9b91-ca34da1aee3c: ready
+2024-11-13 19:38:43,528 - app.main - INFO - [main.py:80] - === Start Training Request Received ===
+2024-11-13 19:38:43,528 - app.main - DEBUG - [main.py:86] - Received data: {'config1': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 1568, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}, 'config2': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 1568, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}}
+2024-11-13 19:38:43,528 - app.main - INFO - [main.py:94] - Generated session ID: 8fa242f2-4713-49fd-86b4-1dc640686f10
+2024-11-13 19:38:43,528 - app.main - INFO - [main.py:105] - === Returning session ID: 8fa242f2-4713-49fd-86b4-1dc640686f10 ===
+2024-11-13 19:38:43,528 - app.main - INFO - [main.py:120] - === Starting initialization for session 8fa242f2-4713-49fd-86b4-1dc640686f10 ===
+2024-11-13 19:38:43,623 - app.main - INFO - [main.py:139] - === Initialization complete for session 8fa242f2-4713-49fd-86b4-1dc640686f10 ===
+2024-11-13 19:40:01,073 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 19:40:01,073 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 19:40:01,074 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-13 19:40:04,020 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 19:40:04,020 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 19:40:04,021 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-13 19:40:28,510 - app.main - INFO - [main.py:80] - === Start Training Request Received ===
+2024-11-13 19:40:28,510 - app.main - DEBUG - [main.py:86] - Received data: {'config1': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 1568, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}, 'config2': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 1568, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}}
+2024-11-13 19:40:28,511 - app.main - INFO - [main.py:94] - Generated session ID: 3b20aaa9-648d-43e0-a053-691c311cf94c
+2024-11-13 19:40:28,512 - app.main - INFO - [main.py:120] - === Starting initialization for session 3b20aaa9-648d-43e0-a053-691c311cf94c ===
+2024-11-13 19:40:28,512 - app.main - INFO - [main.py:105] - === Returning session ID: 3b20aaa9-648d-43e0-a053-691c311cf94c ===
+2024-11-13 19:40:28,542 - app.main - INFO - [main.py:150] - Checking status for session 3b20aaa9-648d-43e0-a053-691c311cf94c
+2024-11-13 19:40:28,561 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['3b20aaa9-648d-43e0-a053-691c311cf94c'])
+2024-11-13 19:40:28,562 - app.main - INFO - [main.py:171] - Returning status for session 3b20aaa9-648d-43e0-a053-691c311cf94c: initializing
+2024-11-13 19:40:28,600 - app.main - INFO - [main.py:139] - === Initialization complete for session 3b20aaa9-648d-43e0-a053-691c311cf94c ===
+2024-11-13 19:40:29,592 - app.main - INFO - [main.py:150] - Checking status for session 3b20aaa9-648d-43e0-a053-691c311cf94c
+2024-11-13 19:40:29,592 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['3b20aaa9-648d-43e0-a053-691c311cf94c'])
+2024-11-13 19:40:29,592 - app.main - INFO - [main.py:171] - Returning status for session 3b20aaa9-648d-43e0-a053-691c311cf94c: ready
+2024-11-13 19:42:34,023 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 19:42:34,023 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 19:42:34,023 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-13 19:42:37,374 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 19:42:37,374 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 19:42:37,374 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-13 19:43:33,066 - app.main - INFO - [main.py:80] - === Start Training Request Received ===
+2024-11-13 19:43:33,068 - app.main - DEBUG - [main.py:86] - Received data: {'config1': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 1568, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}, 'config2': {'layers': [{'layer_type': 'conv2d', 'in_channels': 1, 'out_channels': 16, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'conv2d', 'in_channels': 16, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 32}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 32, 'out_channels': 64, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'maxpool', 'kernel_size': 2, 'stride': 2, 'channels': 64}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'conv2d', 'in_channels': 64, 'out_channels': 32, 'kernel_size': 3, 'stride': 1, 'padding': 1}, {'layer_type': 'activation', 'function': 'relu'}, {'layer_type': 'linear', 'in_features': 1568, 'out_features': 128}, {'layer_type': 'linear', 'in_features': 128, 'out_features': 10}], 'optimizer_type': 'adam', 'loss_function': 'cross_entropy', 'learning_rate': 0.001, 'batch_size': 32, 'num_epochs': 10, 'device': 'cuda', 'augmentations': []}}
+2024-11-13 19:43:33,068 - app.main - INFO - [main.py:94] - Generated session ID: 787834ae-9a34-4d62-8b3c-b1735fd02343
+2024-11-13 19:43:33,068 - app.main - INFO - [main.py:120] - === Starting initialization for session 787834ae-9a34-4d62-8b3c-b1735fd02343 ===
+2024-11-13 19:43:33,068 - app.main - INFO - [main.py:105] - === Returning session ID: 787834ae-9a34-4d62-8b3c-b1735fd02343 ===
+2024-11-13 19:43:33,107 - app.main - INFO - [main.py:150] - Checking status for session 787834ae-9a34-4d62-8b3c-b1735fd02343
+2024-11-13 19:43:33,107 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['787834ae-9a34-4d62-8b3c-b1735fd02343'])
+2024-11-13 19:43:33,107 - app.main - INFO - [main.py:171] - Returning status for session 787834ae-9a34-4d62-8b3c-b1735fd02343: initializing
+2024-11-13 19:43:33,150 - app.main - INFO - [main.py:139] - === Initialization complete for session 787834ae-9a34-4d62-8b3c-b1735fd02343 ===
+2024-11-13 19:43:34,208 - app.main - INFO - [main.py:150] - Checking status for session 787834ae-9a34-4d62-8b3c-b1735fd02343
+2024-11-13 19:43:34,208 - app.main - DEBUG - [main.py:151] - Active trainers: dict_keys(['787834ae-9a34-4d62-8b3c-b1735fd02343'])
+2024-11-13 19:43:34,208 - app.main - INFO - [main.py:171] - Returning status for session 787834ae-9a34-4d62-8b3c-b1735fd02343: ready
+2024-11-13 19:46:20,049 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 19:46:20,049 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 19:46:20,050 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-13 19:46:22,961 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-13 19:46:22,961 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-13 19:46:22,961 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 06:59:11,435 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 06:59:11,435 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 06:59:11,435 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 06:59:14,018 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 06:59:14,018 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 06:59:14,018 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:06:24,355 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:06:24,355 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:06:24,355 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:06:26,988 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:06:26,988 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:06:26,988 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:08:40,489 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:08:40,489 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:08:40,489 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:08:43,705 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:08:43,706 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:08:43,706 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:10:39,606 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:10:39,606 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:10:39,606 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:10:43,073 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:10:43,073 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:10:43,073 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:13:20,415 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:13:20,415 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:13:20,415 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:21:31,478 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:21:31,478 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:21:31,478 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:23:45,576 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:23:45,576 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:23:45,576 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:24:26,258 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:24:26,258 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:24:26,258 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:24:28,996 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:24:28,996 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:24:28,996 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:47:00,889 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:47:00,889 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:47:00,889 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:47:17,303 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:47:17,303 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:47:17,303 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:47:22,655 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:47:22,655 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:47:22,657 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:53:12,978 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:53:12,978 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:53:12,978 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 07:53:15,923 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 07:53:15,924 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 07:53:15,924 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 09:51:17,223 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 09:51:17,223 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 09:51:17,223 - app.main - WARNING - [main.py:45] - Warning logging test
+2024-11-14 09:51:20,323 - app.main - DEBUG - [main.py:43] - Debug logging test
+2024-11-14 09:51:20,323 - app.main - INFO - [main.py:44] - Info logging test
+2024-11-14 09:51:20,339 - app.main - WARNING - [main.py:45] - Warning logging test
