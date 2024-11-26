@@ -20,9 +20,30 @@ jobs:
         pip install -r Assignment_5_New/requirements.txt
     
     - name: Run tests
+      id: unit_tests
       run: |
+        echo "Running unit tests..."
         pytest Assignment_5_New/test_model.py -v
+        test_exit_code=$?
+        if [ $test_exit_code -eq 0 ]; then
+          echo "✅ All unit tests passed successfully"
+        else
+          echo "❌ Unit tests failed"
+          exit 1
+        fi
     
-    - name: Train model
+    - name: Train model and check accuracy
+      if: success()
       run: |
-        python Assignment_5_New/train.py 
+        echo "Training model and checking for 95% accuracy requirement..."
+        python Assignment_5_New/train.py
+      
+    - name: Verify training success
+      if: success()
+      run: |
+        if [ $? -eq 0 ]; then
+          echo "✅ Model achieved >95% accuracy in first epoch"
+        else
+          echo "❌ Model failed to achieve 95% accuracy in first epoch"
+          exit 1
+        fi

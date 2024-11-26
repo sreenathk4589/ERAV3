@@ -5,6 +5,7 @@ from model import MNISTNet, count_parameters
 def test_model_parameters():
     model = MNISTNet()
     n_params = count_parameters(model)
+    print(f"\nModel has {n_params:,} parameters")
     assert n_params < 25000, f"Model has {n_params} parameters, should be less than 25000"
 
 def test_model_input_output():
