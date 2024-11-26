@@ -1,0 +1,15 @@
+name: Master Git Operations
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  call-folder-assignment_5:
+    uses: ./Assignment_5_New/.github/workflows/ml-pipeline.yml
+    with:
+      folder-path: 'Assignment_5_New'
