@@ -4,6 +4,6 @@ on: [push]
 
 jobs:
   call-folder-assignment_5:
-    uses: ./.github/workflows/ml-pipeline.yml
+    uses: sreenathk4589/ERAV3/edit/main/Assignment_5_New/.github/workflows/ml-pipeline.yml@main
     with:
       folder-path: 'Assignment_5_New'
