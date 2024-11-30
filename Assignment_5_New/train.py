@@ -8,6 +8,16 @@ import numpy as np
 from PIL import Image
 import albumentations as A
 
+# Move aug_transform to module level so it can be imported
+aug_transform = A.Compose([
+    A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.1, rotate_limit=15, p=0.3),
+    A.OneOf([
+        A.GaussNoise(p=1),
+        A.GaussianBlur(p=1),
+    ], p=0.2),
+    A.GridDistortion(p=0.2),
+])
+
 class AugmentedMNIST(Dataset):
     def __init__(self, mnist_dataset, transform=None):
         self.dataset = mnist_dataset
@@ -39,17 +49,6 @@ def train():
         transforms.Normalize((0.1307,), (0.3081,))
     ])
     
-    # Augmentation transforms
-    aug_transform = A.Compose([
-        A.RandomRotate90(p=0.2),
-        A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.1, rotate_limit=15, p=0.3),
-        A.OneOf([
-            A.GaussNoise(p=1),
-            A.GaussianBlur(p=1),
-        ], p=0.2),
-        A.GridDistortion(p=0.2),
-    ])
-
     # Load MNIST dataset
     train_dataset_base = datasets.MNIST('./data', train=True, download=True, transform=transform)
     test_dataset = datasets.MNIST('./data', train=False, transform=transform)

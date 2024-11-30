@@ -29,6 +29,11 @@ ERAV3/
 .vscode/
 *.swp
 *.swo
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
 
 # Environment
 .env

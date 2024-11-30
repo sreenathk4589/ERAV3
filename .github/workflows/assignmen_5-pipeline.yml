@@ -32,6 +32,13 @@ jobs:
           exit 1
         fi
     
+    - name: Upload test artifacts
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-outputs
+        path: test_outputs/
+        
     - name: Train model and check accuracy
       if: success()
       run: |
